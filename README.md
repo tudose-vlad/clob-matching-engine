@@ -1,6 +1,6 @@
 # Limit order book in C++20
 
-![CI](https://github.com/YOUR_GITHUB/clob-matching-engine/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/tudose-vlad/clob-matching-engine/actions/workflows/ci.yml/badge.svg)
 
 A single-threaded order book that matches orders by price, then by arrival time.
 It supports limit, market and cancel orders. All memory is allocated when the book is
