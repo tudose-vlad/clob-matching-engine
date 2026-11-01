@@ -1,0 +1,31 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tests with sanitizers
+        run: |
+          cmake -B build-asan -DCMAKE_BUILD_TYPE=Debug -DCLOB_SANITIZE=ON
+          cmake --build build-asan --target tests
+          ./build-asan/tests
+      - name: Release build and benchmark
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build
+          ./build/tests
+          ./build/benchmark
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: MSVC build, tests and benchmark
+        run: |
+          cmake -B build
+          cmake --build build --config Release
+          ./build/Release/tests.exe
+          ./build/Release/benchmark.exe
